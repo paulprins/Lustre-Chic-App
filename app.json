@@ -1,0 +1,8 @@
+{
+  "expo": {
+	"name": "Maison de l'étoile du nord",
+	"slug": "etoile-du-nord",
+	"privacy": "public",
+    "sdkVersion": "20.0.0"
+  }
+}
