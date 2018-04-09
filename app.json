@@ -6,10 +6,15 @@
 	"privacy": "public",
     "sdkVersion": "25.0.0",
     "icon": "./artwork/app-icon.png",
+	"privacy": "unlisted",
+	"orientation": "portrait",
     "android": {
-		"package": "com.paulandjordan.etoile-du-nord",
+		"package": "com.paulandjordan.etoiledunord",
 		"icon": "./artwork/app-icon.png",
     },
+	"androidStatusBar": {
+		"barStyle": "light-content"
+	},
 	"splash": {
 		"backgroundColor": "#585858",
 		"resizeMode": "cover",
