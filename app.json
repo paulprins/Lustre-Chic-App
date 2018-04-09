@@ -1,8 +1,19 @@
 {
   "expo": {
-	"name": "Maison de l'étoile du nord",
+	"name": "l’Étoile du Nord",
 	"slug": "etoile-du-nord",
+    "version": "1.0.0",
 	"privacy": "public",
-    "sdkVersion": "25.0.0"
+    "sdkVersion": "25.0.0",
+    "icon": "./artwork/app-icon.png",
+    "android": {
+		"package": "com.paulandjordan.etoile-du-nord",
+		"icon": "./artwork/app-icon.png",
+    },
+	"splash": {
+		"backgroundColor": "#585858",
+		"resizeMode": "cover",
+		"image":  "./artwork/app-icon.png"
+	}
   }
 }

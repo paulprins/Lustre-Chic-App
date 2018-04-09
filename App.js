@@ -16,9 +16,7 @@ export default class App extends React.Component {
 			lux: 250,
 			HSL: {hue: 23, saturation: 100, lightness: 60},
 		};
-		// props.preview = { backgroundColor: `hsl( ${props.HSL.hue}, ${props.HSL.saturation}%, ${props.HSL.lightness}%)` };
 
-		console.log( this.state );
 	    this.adjustLux = this.adjustLux.bind(this);
 	    this.activeHue = this.activeHue.bind(this);
 	    this.adjustHue = this.adjustHue.bind(this);
@@ -46,7 +44,7 @@ export default class App extends React.Component {
 		});
 	}
 	adjustHue( event ){
-		console.log( event );
+		// console.log( event );
 		let tmpHSL = this.state.HSL;
 		tmpHSL.hue = parseInt( event );
 		this.setState({
@@ -65,7 +63,7 @@ export default class App extends React.Component {
 		});
 	}
 	adjustSaturation( event ){
-		console.log( event );
+		// console.log( event );
 		let tmpHSL = this.state.HSL;
 		tmpHSL.saturation = parseInt( event );
 		this.setState({
@@ -83,7 +81,7 @@ export default class App extends React.Component {
 		});
 	}
 	adjustLightness( event ){
-		console.log( event );
+		// console.log( event );
 		let tmpHSL = this.state.HSL;
 		tmpHSL.lightness = parseInt( event );
 		this.setState({
@@ -121,7 +119,7 @@ export default class App extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={[styles.textBig, styles.textCenter]}>Bienvienue à notre App!</Text>
+        <Text style={[styles.textBig, styles.textCenter]}>l’Étoile du Nord</Text>
 
 		<View style={styles.label}>
 			<Text style={styles.labelText}>Brightness</Text>
@@ -260,7 +258,7 @@ function makeParticleRequest( functionName, postData ){
 		return fetch('https://api.particle.io/v1/devices/' + particleDeviceID + '/' + encodeURIComponent( functionName ), fetchData )
 			.then((response) => response.json())
 			.then((responseJson) => {
-				console.log( responseJson );
+				// console.log( responseJson );
 			})
 			.catch((error) => {
 				console.error(error);

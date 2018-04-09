@@ -1,6 +1,6 @@
 {
-  "name": "chez-nous",
-  "version": "0.3.0",
+  "name": "Etoile-du-Nord",
+  "version": "1.0.0",
   "private": true,
   "devDependencies": {
     "jest-expo": "~20.0.0",

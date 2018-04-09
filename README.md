@@ -1,3 +1,8 @@
+
+# Setup the app
+
+You need to copy the `DEFAULT_config.json` to `config.json` and fill in the values. The device ID is from the Particle dashboard, and you can find the Access Token from the build interface (click into the settings).
+
 This project was bootstrapped with [Create React Native App](https://github.com/react-community/create-react-native-app).
 
 Below you'll find information about performing common tasks. The most recent version of this guide is available [here](https://github.com/react-community/create-react-native-app/blob/master/react-native-scripts/template/README.md).
