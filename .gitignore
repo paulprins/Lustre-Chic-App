@@ -55,5 +55,3 @@ buck-out/
 package-lock.json
 
 config.json
-
-.expo/packager-info.json

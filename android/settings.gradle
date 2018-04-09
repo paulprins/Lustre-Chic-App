@@ -1,0 +1,3 @@
+rootProject.name = 'Etoile-du-Nord'
+
+include ':app'
