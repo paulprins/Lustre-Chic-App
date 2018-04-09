@@ -1,4 +1,4 @@
-package com.etoile-du-nord;
+package com.paulandjordan.etoile_du_nord_app;
 
 import com.facebook.react.ReactActivity;
 
