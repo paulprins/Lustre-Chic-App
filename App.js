@@ -1,6 +1,14 @@
 import React from 'react';
 import { Alert, StyleSheet, Slider, Text, View, Button } from 'react-native';
 
+// Ensure that a valid config file exists - You must copy 'DEFAULT_config.json' to 'config.json' and fill it out
+var configObject = require('./config.json');
+const particleLightKey = configObject.AccessToken,
+	particleDeviceID = configObject.DeviceID;
+// Ensure that a valid config file exists
+
+
+
 export default class App extends React.Component {
 	constructor(props) {
 	    super(props);
@@ -220,10 +228,6 @@ const styles = StyleSheet.create({
 		fontWeight: '700',
 	}
 });
-
-const particleLightKey = '31cad7165f377c7881aee12b13ee123578060232',
-	particleDeviceID = '42003b001347333438373338';
-
 
 
 //
