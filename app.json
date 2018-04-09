@@ -1,24 +1,25 @@
 {
   "expo": {
-	"name": "l’Étoile du Nord",
-	"slug": "etoile-du-nord",
+    "name": "l’Étoile du Nord",
+    "slug": "etoile-du-nord",
     "version": "1.0.0",
-	"privacy": "public",
     "sdkVersion": "25.0.0",
     "icon": "./artwork/app-icon.png",
-	"privacy": "unlisted",
-	"orientation": "portrait",
+    "privacy": "unlisted",
+    "orientation": "portrait",
     "android": {
-		"package": "com.paulandjordan.etoiledunord",
-		"icon": "./artwork/app-icon.png",
+      "package": "com.paulandjordan.etoiledunord",
+      "icon": "./artwork/app-icon.png"
     },
-	"androidStatusBar": {
-		"barStyle": "light-content"
-	},
-	"splash": {
-		"backgroundColor": "#585858",
-		"resizeMode": "cover",
-		"image":  "./artwork/app-icon.png"
-	}
-  }
+    "androidStatusBar": {
+      "barStyle": "light-content"
+    },
+    "splash": {
+      "backgroundColor": "#585858",
+      "resizeMode": "cover",
+      "image": "./artwork/app-icon.png"
+    }
+  },
+  "name": "EtoileduNord",
+  "displayName": "l’Étoile du Nord"
 }
