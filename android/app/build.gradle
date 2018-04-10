@@ -88,7 +88,7 @@ def getPassword(String currentUser, String keyChain) {
 	//noinspection GroovyAssignabilityCheck
 	stdout.toString().trim()
 }
-def keystorePassword = getPassword("paulprins","android_keystore")
+def keystorePassword = getPassword("paulprins","android_personal_keystore")
 
 
 
@@ -114,13 +114,13 @@ def enableSeparateBuildPerCPUArchitecture = false
 def enableProguardInReleaseBuilds = false
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion "23.0.1"
+    compileSdkVersion 25
+    buildToolsVersion "25.0.1"
 
     defaultConfig {
         applicationId "com.paulandjordan.etoile_du_nord_app"
         minSdkVersion 16
-        targetSdkVersion 22
+        targetSdkVersion 25
         versionCode 1
         versionName "1.0"
         ndk {
