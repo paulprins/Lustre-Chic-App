@@ -1,5 +1,6 @@
 import React from 'react';
 import { Alert, StyleSheet, Slider, Text, View, Button } from 'react-native';
+import SplashScreen from 'react-native-splash-screen';
 
 // Ensure that a valid config file exists - You must copy 'DEFAULT_config.json' to 'config.json' and fill it out
 var configObject = require('./config.json');
@@ -114,6 +115,10 @@ export default class App extends React.Component {
 			let hsl2Promise = makeParticleRequest('setSat', {arg: this.state.HSL.saturation});
 			let hsl3Promise = makeParticleRequest('setLight', {arg: this.state.HSL.lightness});
 		});
+	}
+	
+	componentDidMount() {
+		SplashScreen.hide()
 	}
 
   render() {

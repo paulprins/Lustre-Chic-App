@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "react": "^16.2.0",
-    "react-native": "^0.52.3"
+    "react-native": "^0.52.3",
+    "react-native-splash-screen": "^3.0.6"
   }
 }
