@@ -1,5 +1,5 @@
 import React from 'react';
-import { Alert, StyleSheet, Slider, Text, View, Button } from 'react-native';
+import { Platform, Alert, StyleSheet, Slider, Text, View, Button } from 'react-native';
 import SplashScreen from 'react-native-splash-screen';
 
 // Ensure that a valid config file exists - You must copy 'DEFAULT_config.json' to 'config.json' and fill it out

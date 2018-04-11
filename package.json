@@ -2,22 +2,23 @@
   "name": "Etoile-du-Nord",
   "version": "1.0.0",
   "private": true,
-  "devDependencies": {
-    "jest-react-native": "^18.0.0",
-    "react-test-renderer": "16.0.0-alpha.12"
-  },
   "scripts": {
     "start": "react-native start",
     "android": "react-native run-android",
+    "android-release": "cd android && ./gradlew assembleRelease -x lintVitalRelease",
     "ios": "react-native run-ios",
     "test": "node node_modules/jest/bin/jest.js --watch"
-  },
-  "jest": {
-    "preset": "react-native"
   },
   "dependencies": {
     "react": "^16.2.0",
     "react-native": "^0.52.3",
     "react-native-splash-screen": "^3.0.6"
+  },
+  "devDependencies": {
+    "jest-react-native": "^18.0.0",
+    "react-test-renderer": "16.0.0-alpha.12"
+  },
+  "jest": {
+    "preset": "react-native"
   }
 }

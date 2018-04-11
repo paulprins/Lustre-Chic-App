@@ -16,7 +16,7 @@
 #define TIMEOUT_SECONDS 600
 #define TEXT_TO_LOOK_FOR @"Welcome to React Native!"
 
-@interface Etoile-du-NordTests : XCTestCase
+@interface Etoile-du-NordTests : XCTestCase;
 
 @end
 
