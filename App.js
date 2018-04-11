@@ -14,8 +14,11 @@ export default class App extends React.Component {
 	constructor(props) {
 	    super(props);
 		this.state = {
-			lux: 250,
-			HSL: {hue: 23, saturation: 100, lightness: 60},
+			lux: 250,												// Hold the brightness of the light
+			HSL: {hue: 23, saturation: 100, lightness: 60},			// Hold the HSL value of the light
+			loading: true,											// Used to display an inital loading message
+			refresh: false,											// Used when we are syncing active state from the light
+			on: false												// Used to tell the user that the light is not powered
 		};
 
 	    this.adjustLux = this.adjustLux.bind(this);
@@ -26,15 +29,21 @@ export default class App extends React.Component {
 	    this.activeLightness = this.activeLightness.bind(this);
 	    this.adjustLightness = this.adjustLightness.bind(this);
 	    this.resetLight = this.resetLight.bind(this);
-	    // this.handleSubmit = this.handleSubmit.bind(this);
+	    this.remoteRefresh = this.remoteRefresh.bind(this);
+	    this.remoteRefreshCallback = this.remoteRefreshCallback.bind(this);
 	}
+
+	componentDidMount() {
+		SplashScreen.hide()
+		this.remoteRefresh();
+	};
 
 	adjustLux( event ){
 		this.setState({
 			lux: parseInt( event )
 		});
 
-		let luxPromise = makeParticleRequest('setLux', {arg: event });
+		let luxPromise = makeParticleRequest('setLux', {arg: event }, 'function');
     }
 
 	activeHue( event ){
@@ -52,7 +61,7 @@ export default class App extends React.Component {
 			HSL: tmpHSL
 		});
 
-		let hslPromise = makeParticleRequest('setHue', {arg: event });
+		let hslPromise = makeParticleRequest('setHue', {arg: event }, 'function');
     }
 
 
@@ -71,7 +80,7 @@ export default class App extends React.Component {
 			HSL: tmpHSL
 		});
 
-		let hslPromise = makeParticleRequest('setSat', {arg: event });
+		let hslPromise = makeParticleRequest('setSat', {arg: event }, 'function');
     }
 
 	activeLightness( event ){
@@ -89,19 +98,19 @@ export default class App extends React.Component {
 			HSL: tmpHSL
 		});
 
-		let hslPromise = makeParticleRequest('setLight', {arg: event });
+		let hslPromise = makeParticleRequest('setLight', {arg: event }, 'function');
     }
 
 
 
 	resetLight( event ){
 		// this.lux.value = 250;
-		// let luxPromise = makeParticleRequest('setLux', {arg: this.lux.value });
+		// let luxPromise = makeParticleRequest('setLux', {arg: this.lux.value }, 'function');
 
 		this.setState({
 			lux: parseInt( 250 )
 		}, function(){
-			let luxPromise = makeParticleRequest('setLux', {arg: this.state.lux });
+			let luxPromise = makeParticleRequest('setLux', {arg: this.state.lux }, 'function');
 		});
 
 		let tmpHSL = this.state.HSL;
@@ -111,15 +120,36 @@ export default class App extends React.Component {
 		this.setState({
 			HSL: tmpHSL
 		}, function(){
-			let hslPromise = makeParticleRequest('setHue', {arg: this.state.HSL.hue});
-			let hsl2Promise = makeParticleRequest('setSat', {arg: this.state.HSL.saturation});
-			let hsl3Promise = makeParticleRequest('setLight', {arg: this.state.HSL.lightness});
+			let hslPromise = makeParticleRequest('setHue', {arg: this.state.HSL.hue}, 'function');
+			let hsl2Promise = makeParticleRequest('setSat', {arg: this.state.HSL.saturation}, 'function');
+			let hsl3Promise = makeParticleRequest('setLight', {arg: this.state.HSL.lightness}, 'function');
 		});
-	}
-	
-	componentDidMount() {
-		SplashScreen.hide()
-	}
+	};
+
+	remoteRefreshCallback( data ){
+		let tmp = data.split(','),	// Split up the reponse - mode, hue, sat, light, brightness, lux change
+			tmpHSL = this.state.HSL;
+
+		tmpHSL.hue = parseInt( tmp[1] );
+		tmpHSL.saturation = parseInt( tmp[2] );
+		tmpHSL.lightness = parseInt( tmp[3] );
+		this.setState({
+			lux: parseInt( tmp[4] ),
+			HSL: tmpHSL,
+			loading: false,
+			refresh: false,
+			on: true
+		});
+
+
+		console.log( this.state );
+		return;
+	};
+
+	remoteRefresh(){
+		this.setState({refresh: true});
+		let refreshPromise = makeParticleRequest('quickSetting', {}, 'variable', this.remoteRefreshCallback );
+	};
 
   render() {
     return (
@@ -235,7 +265,10 @@ const styles = StyleSheet.create({
 
 //
 // Post a request to remote server
-function makeParticleRequest( functionName, postData ){
+function makeParticleRequest( functionName, postData, postType, callback ){
+	if ( typeof callback == 'undefined' ){
+		var callback = function( data ){ return; }
+	}
 
 	let fetchData = {
 			method: 'POST',
@@ -250,22 +283,37 @@ function makeParticleRequest( functionName, postData ){
 			}
 		};
 
-		//
-		// Prepare to send the data to Particle for processing
-		if ( typeof postData === 'object' && postData !== null && Object.keys( postData ).length > 0 ){
-			fetchData.body = [];
-			for (var k in postData) {
-				fetchData.body.push(encodeURIComponent(k) + "=" + encodeURIComponent( postData[k] ));
-			}
-			fetchData.body = fetchData.body.join("&");
-		}
+	if ( postType == 'variable' ){
+		fetchData.method = 'GET';
+	}else if ( postType == 'function' ){
+		fetchData.method = 'POST';
+	}
 
-		return fetch('https://api.particle.io/v1/devices/' + particleDeviceID + '/' + encodeURIComponent( functionName ), fetchData )
-			.then((response) => response.json())
-			.then((responseJson) => {
-				// console.log( responseJson );
-			})
-			.catch((error) => {
-				console.error(error);
-			});
+	//
+	// Prepare to send the data to Particle for processing
+	if ( typeof postData === 'object' && postData !== null && Object.keys( postData ).length > 0 ){
+		fetchData.body = [];
+		for (var k in postData) {
+			fetchData.body.push(encodeURIComponent(k) + "=" + encodeURIComponent( postData[k] ));
+		}
+		fetchData.body = fetchData.body.join("&");
+	}
+
+	return fetch('https://api.particle.io/v1/devices/' + particleDeviceID + '/' + encodeURIComponent( functionName ), fetchData )
+		.then((response) => response.json())
+		.then((responseJson) => {
+			// console.log( responseJson );
+			if ( postType == 'variable' ){
+				callback( responseJson.result );
+				return;
+			}else if ( postType == 'function' ){
+				callback( responseJson.return_value );
+				return;
+			}
+			// callback( responseJson.result );
+		})
+		.catch((error) => {
+			console.error(error);
+			return;
+		});
 }
