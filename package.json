@@ -10,9 +10,9 @@
     "test": "node node_modules/jest/bin/jest.js --watch"
   },
   "dependencies": {
-    "react": "^16.2.0",
-    "react-native": "^0.52.3",
-    "react-native-splash-screen": "^3.0.6"
+    "react": "^16.4.1",
+    "react-native": "^0.56.0",
+    "react-native-splash-screen": "^3.1.0"
   },
   "devDependencies": {
     "jest-react-native": "^18.0.0",
